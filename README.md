@@ -1,2 +1,2 @@
-# preview
-preview
+# edit
+editor gui for preview
