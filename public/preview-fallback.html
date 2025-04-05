@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ReactStream Preview</title>
+    <title>Component Preview</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -18,7 +18,7 @@
             padding: 20px;
             background-color: white;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         h1 {
@@ -162,29 +162,29 @@
 </head>
 <body>
 <div class="preview-container">
-    <h1>ReactStream Preview</h1>
+    <h1>Component Preview</h1>
 
     <div id="status" class="status loading">
-        Oczekiwanie na podgląd komponentu...
+        Loading component...
     </div>
 
     <div class="tab-container">
         <div class="tab-buttons">
-            <button class="tab-button active" onclick="openTab('preview-tab')">Podgląd</button>
-            <button class="tab-button" onclick="openTab('code-tab')">Kod źródłowy</button>
-            <button class="tab-button" onclick="openTab('info-tab')">Informacje</button>
+            <button class="tab-button active" onclick="openTab('preview-tab')">Preview</button>
+            <button class="tab-button" onclick="openTab('code-tab')">Source Code</button>
+            <button class="tab-button" onclick="openTab('info-tab')">Info</button>
         </div>
 
         <div id="preview-tab" class="tab-content active">
             <div id="preview">
                 <!-- Tu będzie wyświetlany komponent -->
                 <div class="demo-component">
-                    <h2 class="demo-title">Przykładowy komponent</h2>
-                    <p>To jest przykładowy komponent wyświetlany w trybie zastępczym.</p>
-                    <p>Edytuj kod w edytorze i kliknij "Update Preview" aby zobaczyć zmiany.</p>
+                    <h2 class="demo-title">Example Component</h2>
+                    <p>This is a sample component displayed in fallback mode.</p>
+                    <p>Edit the code in the editor and click "Update Preview" to see changes.</p>
                     <div style="margin: 20px 0;">
                         <button id="counterBtn" class="demo-button">
-                            Licznik: 0
+                            Counter: 0
                         </button>
                     </div>
                 </div>
@@ -194,68 +194,66 @@
         <div id="code-tab" class="tab-content">
             <div class="code-container">
                 <div class="code-header">
-                    <span>Kod komponentu</span>
-                    <button class="refresh-button" onclick="loadComponentSource()">Odśwież</button>
+                    <span>Component Code</span>
+                    <button class="refresh-button" onclick="loadComponentSource()">Refresh</button>
                 </div>
-                <pre class="code-content" id="component-code">Ładowanie kodu komponentu...</pre>
+                <pre class="code-content" id="component-code">Loading component code...</pre>
             </div>
         </div>
 
         <div id="info-tab" class="tab-content">
-            <h3>Informacje o trybie podglądu</h3>
-            <p>Aktualnie przeglądasz komponent w trybie zastępczym (fallback), ponieważ nie udało się uruchomić pełnego
-                środowiska podglądu React.</p>
-            <p>W tym trybie możesz:</p>
+            <h3>About Preview Mode</h3>
+            <p>You are currently viewing the component in fallback mode because the full React preview environment could not be started.</p>
+            <p>In this mode you can:</p>
             <ul>
-                <li>Zobaczyć aktualny kod komponentu</li>
-                <li>Obserwować działanie prostej wersji demonstracyjnej</li>
-                <li>Przetestować podstawowe interakcje</li>
+                <li>See the current component code</li>
+                <li>View a simple demonstration version</li>
+                <li>Test basic interactions</li>
             </ul>
-            <p>Aby zobaczyć pełną wersję komponentu, upewnij się, że:</p>
+            <p>To see the full component, make sure:</p>
             <ul>
-                <li>Twój kod jest poprawny składniowo</li>
-                <li>Wszystkie wymagane zależności są dostępne</li>
-                <li>Komponent może być wyrenderowany bez błędów</li>
+                <li>Your code is syntactically correct</li>
+                <li>All required dependencies are available</li>
+                <li>The component can render without errors</li>
             </ul>
-            <p><strong>Wskazówka:</strong> Po wprowadzeniu zmian w edytorze, kliknij przycisk "Update Preview" w głównym
-                interfejsie aplikacji, aby zaktualizować podgląd.</p>
+            <p><strong>Tip:</strong> After making changes in the editor, click the "Update Preview" button in the main interface to update the preview.</p>
         </div>
     </div>
 </div>
 
 <script>
-    // Funkcja do aktualizacji statusu
+    // Function to update status
     function updateStatus(type, message) {
         const statusEl = document.getElementById('status');
         statusEl.className = `status ${type}`;
         statusEl.textContent = message;
     }
 
-    // Funkcja do przełączania zakładek
+    // Function to switch tabs
     function openTab(tabName) {
-        // Ukryj wszystkie zakładki
+        // Hide all tabs
         const tabContents = document.getElementsByClassName('tab-content');
         for (let i = 0; i < tabContents.length; i++) {
             tabContents[i].classList.remove('active');
         }
 
-        // Usuń aktywną klasę z przycisków
+        // Remove active class from buttons
         const tabButtons = document.getElementsByClassName('tab-button');
         for (let i = 0; i < tabButtons.length; i++) {
             tabButtons[i].classList.remove('active');
         }
 
-        // Pokaż wybraną zakładkę i aktywuj przycisk
+        // Show selected tab and activate button
         document.getElementById(tabName).classList.add('active');
         document.querySelector(`button[onclick="openTab('${tabName}')"]`).classList.add('active');
     }
 
-    // Funkcja do ładowania źródła komponentu
+    // Function to load component source
     function loadComponentSource() {
         const codeEl = document.getElementById('component-code');
-        codeEl.textContent = 'Ładowanie kodu komponentu...';
+        codeEl.textContent = 'Loading component code...';
 
-        fetch('/component-source')
+        fetch('/api/component-source')
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -264,53 +262,45 @@
             })
             .then(data => {
                 codeEl.textContent = data;
-                updateStatus('success', 'Kod komponentu załadowany pomyślnie');
+                updateStatus('success', 'Component code loaded successfully');
             })
             .catch(error => {
                 console.error('Error loading component source:', error);
-                codeEl.textContent = 'Błąd ładowania kodu komponentu: ' + error.message;
-                updateStatus('error', 'Błąd ładowania kodu komponentu');
+                codeEl.textContent = 'Error loading component code: ' + error.message;
+                updateStatus('error', 'Error loading component code');
             });
     }
 
-    // Tutaj możemy dodać podstawową logikę do wyświetlania komponentu
-    document.addEventListener('DOMContentLoaded', function () {
-        updateStatus('loading', 'Ładowanie komponentu...');
+    // Initialize when DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+        updateStatus('loading', 'Loading component...');
 
-        // Załaduj kod komponentu
+        // Load component code
         loadComponentSource();
 
-        // Dodaj prostą interaktywność do przycisku licznika
+        // Add simple interactivity to counter button
         let counter = 0;
         const counterBtn = document.getElementById('counterBtn');
         if (counterBtn) {
-            counterBtn.addEventListener('click', function () {
+            counterBtn.addEventListener('click', function() {
                 counter++;
-                this.textContent = `Licznik: ${counter}`;
+                this.textContent = `Counter: ${counter}`;
 
                 if (counter >= 10) {
-                    updateStatus('success', 'Gratulacje! Osiągnięto 10 kliknięć!');
+                    updateStatus('success', 'Congratulations! You reached 10 clicks!');
                 } else {
-                    updateStatus('success', 'Komponent działa w trybie zastępczym');
+                    updateStatus('success', 'Component working in fallback mode');
                 }
             });
         }
 
-        // Aktualizuj status po załadowaniu
+        // Update status after loading
         setTimeout(() => {
-            updateStatus('success', 'Komponent załadowany w trybie zastępczym');
+            updateStatus('success', 'Component loaded in fallback mode');
         }, 1000);
 
-        // Odświeżaj kod co 10 sekund
-        setInterval(loadComponentSource, 10000);
-    });
-
-    // Dodaj obserwację zmian w kodzie i automatyczne odświeżanie
-    window.addEventListener('storage', function (e) {
-        if (e.key === 'componentUpdated') {
-            loadComponentSource();
-            updateStatus('info', 'Kod został zaktualizowany');
-        }
+        // Refresh code every 5 seconds
+        setInterval(loadComponentSource, 5000);
     });
 </script>
 </body>

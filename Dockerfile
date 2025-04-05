@@ -1,26 +1,27 @@
-FROM node:16-alpine
+FROM node:20-alpine
 
 WORKDIR /app
 
+# Copy package files
+COPY package.json package-lock.json* ./
+
 # Install dependencies
-COPY package*.json ./
 RUN npm install
 
-# Copy application code
+# Copy source files
 COPY . .
 
-# Install global dependencies
-RUN npm install -g @babel/core @babel/preset-env @babel/preset-react eslint
+# Create public directory if it doesn't exist
+RUN mkdir -p public
 
-# Create necessary directories
-RUN mkdir -p temp logs components
+# Copy fallback HTML
+COPY public/preview-fallback.html public/
 
-# Build the application
-RUN npm run build
+# Create shared directory if it doesn't exist
+RUN mkdir -p ../shared
 
-# Expose ports for the web interface and development server
-# These will be overridden by the environment variables
-EXPOSE 80 3000
+# Expose port
+EXPOSE 3010
 
-# Start the application
-CMD ["node", "server.js"]
+# Start preview server
+CMD ["node", "server.js", "./public/example.js", "--port=3010"]

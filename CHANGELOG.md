@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.2] - 2025-04-05
+
+### Changed
+- Changes in Dockerfile
+
+### Removed
+- Changes in docker-compose.yaml
+
 ## [0.1.1] - 2025-04-05
 
 ### Added

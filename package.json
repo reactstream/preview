@@ -2,10 +2,10 @@
   "name": "reactstream-preview",
   "version": "1.0.0",
   "description": "Preview server for ReactStream components",
-  "main": "preview-server.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node preview-server.js ../shared/example.js",
-    "dev": "nodemon preview-server.js ../shared/example.js",
+    "start": "node server.js ./public/example.js",
+    "dev": "nodemon server.js ./public/example.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

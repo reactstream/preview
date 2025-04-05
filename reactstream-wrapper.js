@@ -11,7 +11,7 @@ const reactstreamPath = path.join(__dirname, 'node_modules', '.bin', 'reactstrea
 const hasReactstream = fs.existsSync(reactstreamPath);
 
 // Ścieżka do naszego zastępczego serwera podglądu
-const previewServerPath = path.join(__dirname, 'preview-server.js');
+const previewServerPath = path.join(__dirname, 'server.js');
 
 // Forward all arguments to the appropriate CLI
 const args = process.argv.slice(2);
@@ -182,7 +182,7 @@ app.listen(port, () => {
 });`;
 
         // Zapisz plik serwera
-        const tempServerPath = path.join(__dirname, 'temp-preview-server.js');
+        const tempServerPath = path.join(__dirname, 'temp-server.js');
         fs.writeFileSync(tempServerPath, serverContent);
 
         // Uruchom zastępczy serwer

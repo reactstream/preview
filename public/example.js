@@ -1,4 +1,4 @@
-// src/example.js
+// shared/example.js
 import React, { useState } from 'react';
 
 const MyComponent = () => {
